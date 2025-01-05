@@ -47,7 +47,7 @@ const NotesPluginComponent = ({
       setNote('');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [habit, date]);
+  }, [habit.pluginData, date]);
 
   const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newNote = e.target.value;
@@ -69,17 +69,17 @@ const NotesPluginComponent = ({
       },
     });
   };
-  if (habit)
-    return (
-      <textarea
-        className="w-full"
-        placeholder={'Take your note for'}
-        key={habit.id}
-        value={updateNote}
-        onChange={handleNoteChange}
-        maxLength={plugin?.settings?.maxLength || 500}
-      />
-    );
+
+  return (
+    <textarea
+      className="w-full"
+      placeholder={'Take your note for'}
+      key={habit.id}
+      value={updateNote}
+      onChange={handleNoteChange}
+      maxLength={plugin?.settings?.maxLength || 500}
+    />
+  );
 };
 
 export default notesPlugin;
