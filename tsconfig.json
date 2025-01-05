@@ -5,9 +5,8 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "@shared/*": ["./shared/*"],
-      "*": ["./@mf-types/*"]
+      "@/*": ["./src/*", "./@mf-types/*"],
+      "@shared/*": ["./shared/*"]
     }
   },
   "include": ["src", "shared", "config", "modern.config.ts"],

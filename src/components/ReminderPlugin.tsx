@@ -1,6 +1,6 @@
+import { Button } from '@/remote/Button';
+import Component from '@/remote/Components';
 import React from 'react';
-import { Button } from 'remote/Button';
-import Component from 'remote/Components';
 
 const ReminderPlugin = () => {
   console.log('de dentro do plugin');
