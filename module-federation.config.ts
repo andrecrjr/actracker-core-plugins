@@ -1,10 +1,11 @@
 import { createModuleFederationConfig } from '@module-federation/modern-js';
 
 export default createModuleFederationConfig({
-  name: 'reminderPlugin',
+  name: 'corePlugin',
   filename: 'remoteEntry.js',
   exposes: {
-    './ReminderPlugin': './src/components/ReminderPlugin.tsx',
+    './DueDatePlugin': './src/components/DueDatePlugin.tsx',
+    './NotePlugin': './src/components/NotePlugin.tsx',
   },
   shared: {
     react: { singleton: true },
