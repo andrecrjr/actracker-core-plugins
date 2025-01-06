@@ -10,7 +10,8 @@
     "new": "modern new",
     "lint": "biome check",
     "prepare": "simple-git-hooks",
-    "upgrade": "modern upgrade"
+    "upgrade": "modern upgrade",
+    "deploy": "modern deploy"
   },
   "engines": {
     "node": ">=16.18.1"

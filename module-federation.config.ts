@@ -2,7 +2,7 @@ import { createModuleFederationConfig } from '@module-federation/modern-js';
 
 export default createModuleFederationConfig({
   name: 'corePlugin',
-  filename: 'remoteEntry.js',
+  filename: 'static/remoteEntry.js',
   exposes: {
     './DueDatePlugin': './src/components/DueDatePlugin.tsx',
     './NotePlugin': './src/components/NotePlugin.tsx',
@@ -12,6 +12,9 @@ export default createModuleFederationConfig({
     'react-dom': { singleton: true },
   },
   remotes: {
-    remote: 'actracker@http://localhost:8080/mf-manifest.json',
+    remote: 'actracker@http://localhost:8080/static/mf-manifest.json',
+  },
+  manifest: {
+    filePath: 'static',
   },
 });
