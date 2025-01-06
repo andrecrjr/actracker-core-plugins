@@ -8,8 +8,11 @@ export default defineConfig({
   runtime: {
     router: true,
   },
-  server: {
-    ssr: true,
+  output: {
+    assetPrefix:
+      process.env.NODE_ENV === 'production' && process.env.CDN_DOMAIN
+        ? process.env.CDN_DOMAIN
+        : '/',
   },
   plugins: [
     appTools({

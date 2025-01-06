@@ -12,7 +12,11 @@ export default createModuleFederationConfig({
     'react-dom': { singleton: true },
   },
   remotes: {
-    remote: 'actracker@http://localhost:8080/static/mf-manifest.json',
+    remote: `actracker@${
+      process.env.ACTRACKER_MF_JSON && process.env.NODE_ENV === 'production'
+        ? `${process.env.ACTRACKER_MF_JSON}`
+        : `http://localhost:8080/static/mf-manifest.json`
+    }`,
   },
   manifest: {
     filePath: 'static',
