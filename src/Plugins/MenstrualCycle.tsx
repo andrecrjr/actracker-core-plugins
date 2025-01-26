@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   Badge,
   Calendar,
@@ -147,7 +147,10 @@ const CycleForm = ({
   };
 
   return (
-    <div className="space-y-4">
+    <details open className="space-y-4">
+      <summary className="text-lg font-bold cursor-pointer mb-2">
+        Menstrual Cycle Settings
+      </summary>
       <div className="grid gap-2">
         <label>Last Cycle Start</label>
         <Calendar
@@ -202,7 +205,7 @@ const CycleForm = ({
         lutealPhase={lutealPhase}
         predictions={predictions}
       />
-    </div>
+    </details>
   );
 };
 
@@ -223,30 +226,34 @@ const CycleCalendar = ({
   }[];
 }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const weeks = getMonthWeeks(currentMonth);
+  const weeks = useMemo(() => getMonthWeeks(currentMonth), [currentMonth]);
 
-  const eventMap: Record<string, string[]> = {};
+  const eventMap: Record<string, string[]> = useMemo(() => {
+    const map: Record<string, string[]> = {};
 
-  predictions.forEach(cycle => {
-    if (!eventMap[cycle.cycleStart]) eventMap[cycle.cycleStart] = [];
-    eventMap[cycle.cycleStart].push('period');
+    predictions.forEach(cycle => {
+      if (!map[cycle.cycleStart]) map[cycle.cycleStart] = [];
+      map[cycle.cycleStart].push('period');
 
-    if (!eventMap[cycle.ovulationDate]) eventMap[cycle.ovulationDate] = [];
-    eventMap[cycle.ovulationDate].push('ovulation');
+      if (!map[cycle.ovulationDate]) map[cycle.ovulationDate] = [];
+      map[cycle.ovulationDate].push('ovulation');
 
-    const fertileStart = cycle.fertileWindow.start;
-    const fertileEnd = cycle.fertileWindow.end;
+      const fertileStart = cycle.fertileWindow.start;
+      const fertileEnd = cycle.fertileWindow.end;
 
-    for (
-      let d = new Date(fertileStart);
-      d <= new Date(fertileEnd);
-      d.setDate(d.getDate() + 1)
-    ) {
-      const dateStr = formatDate(d);
-      if (!eventMap[dateStr]) eventMap[dateStr] = [];
-      eventMap[dateStr].push('fertile');
-    }
-  });
+      for (
+        let d = new Date(fertileStart);
+        d <= new Date(fertileEnd);
+        d.setDate(d.getDate() + 1)
+      ) {
+        const dateStr = formatDate(d);
+        if (!map[dateStr]) map[dateStr] = [];
+        map[dateStr].push('fertile');
+      }
+    });
+
+    return map;
+  }, [predictions]);
 
   const getEventTypes = (date: Date) => {
     const dateStr = formatDate(date);
@@ -256,7 +263,9 @@ const CycleCalendar = ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Cycle Calendar</CardTitle>
+        <CardTitle className="text-lg font-semibold text-center">
+          Cycle Calendar
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex justify-between items-center mb-2">
@@ -266,10 +275,11 @@ const CycleCalendar = ({
               prevMonth.setMonth(currentMonth.getMonth() - 1);
               setCurrentMonth(prevMonth);
             }}
+            aria-label="Previous month"
           >
             &lt;
           </button>
-          <span>
+          <span className="font-bold">
             {currentMonth.toLocaleString('default', {
               month: 'long',
               year: 'numeric',
@@ -281,6 +291,7 @@ const CycleCalendar = ({
               nextMonth.setMonth(currentMonth.getMonth() + 1);
               setCurrentMonth(nextMonth);
             }}
+            aria-label="Next month"
           >
             &gt;
           </button>
