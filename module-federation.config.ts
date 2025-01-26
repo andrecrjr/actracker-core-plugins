@@ -4,8 +4,9 @@ export default createModuleFederationConfig({
   name: 'corePlugin',
   filename: 'static/remoteEntry.js',
   exposes: {
-    './DueDatePlugin': './src/components/DueDatePlugin.tsx',
-    './NotePlugin': './src/components/NotePlugin.tsx',
+    './DueDatePlugin': './src/Plugins/DueDatePlugin.tsx',
+    './NotePlugin': './src/Plugins/NotePlugin.tsx',
+    './MenstrualCycle': './src/Plugins/MenstrualCycle.tsx',
   },
   shared: {
     react: { singleton: true },
