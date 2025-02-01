@@ -77,14 +77,15 @@ const EndDateUpdater = ({
   };
 
   return (
-    <div>
+    <details>
+      <summary>Due Date Settings</summary>
       <DateRangePicker
         startDate={startDate}
         endDate={endDate}
         onStartDateChange={handleStartDateChange}
         onEndDateChange={handleEndDateChange}
       />
-    </div>
+    </details>
   );
 };
 
