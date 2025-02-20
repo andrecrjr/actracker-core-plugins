@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from 'remote/Components';
-import { useHabitStore } from 'remote/hooks';
+import { useHabits } from 'remote/hooks';
 import type { Habit, HabitPlugin } from 'remote/types';
 import { cn, formatDate, formatDisplayDate, getMonthWeeks } from 'remote/utils';
 
@@ -38,8 +38,8 @@ const menstrualCyclePlugin: HabitPlugin = {
 };
 
 const CycleSummary = ({ habit, date }: { habit: Habit; date: Date }) => {
-  const { getCurrentHabitById } = useHabitStore();
-  const fullHabit = getCurrentHabitById(habit.id) || habit;
+  const { getHabitById } = useHabits();
+  const fullHabit = getHabitById(habit.id) || habit;
   const cycleData = fullHabit.pluginData?.['menstrual-cycle-plugin'] || {};
   const currentDateStr = formatDate(date);
 
@@ -77,7 +77,7 @@ const CycleForm = ({
   habit: Habit;
   handleSettingChange: (updatedHabit: Habit) => void;
 }) => {
-  const { handleHabitPartialUpdate } = useHabitStore();
+  const { partialUpdateHabit } = useHabits();
   const cycleData = habit.pluginData?.['menstrual-cycle-plugin'] || {};
 
   const [startDate, setStartDate] = useState<Date>(
@@ -122,7 +122,7 @@ const CycleForm = ({
       },
     };
 
-    handleHabitPartialUpdate(habit.id, updatedData);
+    partialUpdateHabit(habit.id, updatedData);
     handleSettingChange(updatedData);
   };
 

@@ -6,7 +6,6 @@ export default createModuleFederationConfig({
   exposes: {
     './DueDatePlugin': './src/Plugins/DueDatePlugin.tsx',
     './NotePlugin': './src/Plugins/NotePlugin.tsx',
-    './MenstrualCycle': './src/Plugins/MenstrualCycle.tsx',
     './WakatimePlugin': './src/Plugins/WakatimeTracker.tsx',
   },
   shared: {
