@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from 'remote/Components';
-import { useHabits } from 'remote/hooks';
+import { useHabitStore } from 'remote/hooks';
 import type { Habit, HabitPlugin } from 'remote/types';
 import { cn, formatDate, formatDisplayDate, getMonthWeeks } from 'remote/utils';
 
@@ -38,10 +38,14 @@ const menstrualCyclePlugin: HabitPlugin = {
 };
 
 const CycleSummary = ({ habit, date }: { habit: Habit; date: Date }) => {
-  const { getHabitById } = useHabits();
-  const fullHabit = getHabitById(habit.id) || habit;
-  const cycleData = fullHabit.pluginData?.['menstrual-cycle-plugin'] || {};
+  const { getHabitById } = useHabitStore();
+  const [cycleData, setCycleData] = useState<any>({});
   const currentDateStr = formatDate(date);
+
+  useEffect(() => {
+    const fullHabit = getHabitById(habit.id) || habit;
+    setCycleData(fullHabit.pluginData?.['menstrual-cycle-plugin'] || {});
+  }, [habit.id, getHabitById]);
 
   return (
     <div className="space-y-2">
@@ -58,12 +62,7 @@ const CycleSummary = ({ habit, date }: { habit: Habit; date: Date }) => {
               date,
               prediction.fertileWindow.start,
               prediction.fertileWindow.end,
-            ) && (
-              <Badge variant="secondary">
-                Fertile Window: {prediction.fertileWindow.start} -{' '}
-                {prediction.fertileWindow.end}
-              </Badge>
-            )}
+            ) && <Badge variant="secondary">Fertile Window</Badge>}
         </div>
       ))}
     </div>
@@ -77,7 +76,7 @@ const CycleForm = ({
   habit: Habit;
   handleSettingChange: (updatedHabit: Habit) => void;
 }) => {
-  const { partialUpdateHabit } = useHabits();
+  const { partialUpdateHabit } = useHabitStore();
   const cycleData = habit.pluginData?.['menstrual-cycle-plugin'] || {};
 
   const [startDate, setStartDate] = useState<Date>(

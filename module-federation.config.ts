@@ -7,6 +7,7 @@ export default createModuleFederationConfig({
     './DueDatePlugin': './src/Plugins/DueDatePlugin.tsx',
     './NotePlugin': './src/Plugins/NotePlugin.tsx',
     './WakatimePlugin': './src/Plugins/WakatimeTracker.tsx',
+    './MenstrualCycle': './src/Plugins/MenstrualCycle.tsx',
   },
   shared: {
     react: { singleton: true },
