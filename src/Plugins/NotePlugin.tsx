@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import { HabitProvider, useHabits } from 'remote/hooks';
+import { HabitProvider, useHabitStore } from 'remote/hooks';
 import type { Habit } from 'remote/types';
 import type { HabitPlugin } from 'remote/types';
 
@@ -20,11 +20,7 @@ export const notesPlugin: HabitPlugin = {
     console.log(`Ready to add notes for ${habit.title} on ${date}`);
   },
   RenderHabitCard(habit: Habit, date: Date) {
-    return (
-      <HabitProvider>
-        <NotesPluginComponent noteHabit={habit} date={date} plugin={this} />
-      </HabitProvider>
-    );
+    return <NotesPluginComponent noteHabit={habit} date={date} plugin={this} />;
   },
 };
 
@@ -33,15 +29,17 @@ const NotesPluginComponent = ({
   plugin,
   date,
 }: { noteHabit: Habit; date: Date; plugin: HabitPlugin }) => {
-  const { partialUpdateHabit, getHabitById } = useHabits();
-  const habit = getHabitById(noteHabit.id) as Habit;
-  console.log(habit);
+  const { partialUpdateHabit, getHabitById, habits } = useHabitStore();
   const currentDate = date.toISOString().split('T')[0];
+
+  const [habit, setHabit] = useState<Habit | null>(null);
   const [updateNote, setNote] = useState('');
 
   useEffect(() => {
-    console.log(plugin?.id);
-    const habitPluginTextData = habit?.pluginData?.[plugin?.id]?.filter(
+    const currentHabit = getHabitById(noteHabit.id) as Habit;
+    setHabit(currentHabit);
+
+    const habitPluginTextData = currentHabit?.pluginData?.[plugin?.id]?.filter(
       (item: Record<string, any>) => item.noteDate === currentDate,
     );
 
@@ -50,8 +48,7 @@ const NotesPluginComponent = ({
     } else {
       setNote('');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [habit?.pluginData, date]);
+  }, [habits, noteHabit.id, plugin.id, currentDate, getHabitById]);
 
   const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newNote = e.target.value;
@@ -59,6 +56,8 @@ const NotesPluginComponent = ({
   };
 
   const updateNoteOnBlur = () => {
+    if (!habit) return;
+
     const updatedPluginData = [
       ...(habit.pluginData?.[plugin.id] || []).filter(
         (item: Record<string, any>) => item.noteDate !== currentDate,
@@ -81,7 +80,7 @@ const NotesPluginComponent = ({
     <textarea
       className="w-full"
       placeholder={'Take your note for'}
-      key={habit.id}
+      key={habit?.id}
       value={updateNote}
       onChange={handleNoteChange}
       onBlur={updateNoteOnBlur}
