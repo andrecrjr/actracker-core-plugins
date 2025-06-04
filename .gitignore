@@ -32,3 +32,4 @@ modern.config.local.*
 @mf-types/**/*
 .output
 .env
+Makefile
