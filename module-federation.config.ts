@@ -4,19 +4,23 @@ export default createModuleFederationConfig({
   name: 'corePlugin',
   filename: 'static/remoteEntry.js',
   exposes: {
-    './DueDatePlugin': './src/Plugins/DueDatePlugin.tsx',
-    './NotePlugin': './src/Plugins/NotePlugin.tsx',
-    './WakatimePlugin': './src/Plugins/WakatimeTracker.tsx',
-    './MenstrualCycle': './src/Plugins/MenstrualCycle.tsx',
+    './SecurePlugins': './src/SecurePlugins/index.tsx',
+    './TodoPlugin': './src/SecurePlugins/todoPlugin.tsx',
+    './NotePlugin': './src/SecurePlugins/notePlugin.tsx',
+    './WeatherPlugin': './src/SecurePlugins/weatherPlugin.tsx',
+    './HabitTrackerPlugin': './src/SecurePlugins/habitTrackerPlugin.tsx',
+    './CalendarPlugin': './src/SecurePlugins/calendarPlugin.tsx',
+    './ProgressPlugin': './src/SecurePlugins/progressPlugin.tsx',
+    './InteractivePlugin': './src/SecurePlugins/interactivePlugin.tsx',
   },
   shared: {
     react: { singleton: true },
     'react-dom': { singleton: true },
   },
   remotes: {
-    remote: `actracker@${
-      process.env.ACTRACKER_MF_JSON && process.env.NODE_ENV === 'production'
-        ? `${process.env.ACTRACKER_MF_JSON}`
+    remote: `daystack@${
+      process.env.DAYSTACK_MF_JSON && process.env.NODE_ENV === 'production'
+        ? `${process.env.DAYSTACK_MF_JSON}`
         : `http://localhost:8080/static/mf-manifest.json`
     }`,
   },

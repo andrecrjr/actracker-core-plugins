@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRangePicker } from 'remote/Components';
 import { Badge } from 'remote/Components';
 import type { HabitPlugin } from 'remote/types';
@@ -18,11 +18,7 @@ const dateRangePlugin: HabitPlugin = {
 
   RenderHabitCard(habit: Habit) {
     if (habit.endDate) {
-      return (
-        <Badge variant="outline" className="bg-secondary/50">
-          Until {habit.endDate}
-        </Badge>
-      );
+      return <Badge className="bg-secondary/50">Until {habit.endDate}</Badge>;
     }
 
     return null;
