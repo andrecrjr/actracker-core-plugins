@@ -32,11 +32,7 @@ const progressPlugin: IPlugin = {
   },
 
   data: {
-    progress: {
-      completed: 7,
-      total: 12,
-      percentage: 58,
-    },
+    progress: {},
   },
 
   renderContent: (date: Date, data?: any, sandbox?: PluginSandbox) => {
