@@ -32,12 +32,7 @@ const habitTrackerPlugin: IPlugin = {
   },
 
   data: {
-    habits: [
-      { name: 'Drink 8 glasses of water', completed: true },
-      { name: 'Exercise for 30 minutes', completed: false },
-      { name: 'Read for 20 minutes', completed: true },
-      { name: 'Meditate', completed: false },
-    ],
+    habits: [],
   },
 
   renderContent: (date: Date, data?: any, sandbox?: PluginSandbox) => {

@@ -31,10 +31,6 @@ const notePlugin: IPlugin = {
     },
   },
 
-  data: {
-    note: 'Working on the new plugin architecture. Great progress so far! Need to add more interactive features.',
-  },
-
   renderContent: (date: Date, data?: any, sandbox?: PluginSandbox) => {
     return <NotePluginContent date={date} data={data} sandbox={sandbox} />;
   },
