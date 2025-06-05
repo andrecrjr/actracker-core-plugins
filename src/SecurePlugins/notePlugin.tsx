@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { IPlugin, PluginSandbox } from 'remote/types';
 
 // Sample Note Plugin
-export const notePlugin: IPlugin = {
+const notePlugin: IPlugin = {
   id: 'note-plugin',
   name: 'Daily Notes',
   description: 'Quick notes for the day',
@@ -121,3 +121,5 @@ function NotePluginContent({
     </div>
   );
 }
+
+export default notePlugin;

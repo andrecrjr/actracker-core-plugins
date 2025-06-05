@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { IPlugin, PluginSandbox } from 'remote/types';
 
 // Sample Interactive Plugin with buttons
-export const interactivePlugin: IPlugin = {
+const interactivePlugin: IPlugin = {
   id: 'interactive-plugin',
   name: 'Interactive Demo',
   description: 'Demo plugin with interactive elements',
@@ -58,6 +58,7 @@ function InteractivePluginContent({
 }: { date: Date; data?: any; sandbox?: PluginSandbox }) {
   const [counter, setCounter] = useState(data?.counter || 0);
   const [lastClicked, setLastClicked] = useState(data?.lastClicked);
+  console.log('localStorage', localStorage);
 
   useEffect(() => {
     const loadData = async () => {
@@ -152,3 +153,5 @@ function InteractivePluginContent({
     </div>
   );
 }
+
+export default interactivePlugin;

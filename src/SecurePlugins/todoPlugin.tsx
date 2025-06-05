@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { IPlugin, PluginSandbox } from 'remote/types';
 
 // Sample Todo Plugin
-export const todoPlugin: IPlugin = {
+const todoPlugin: IPlugin = {
   id: 'todo-plugin',
   name: 'Daily Todo',
   description: 'Manage your daily tasks',
@@ -164,3 +164,5 @@ function TodoPluginContent({
     </div>
   );
 }
+
+export default todoPlugin;

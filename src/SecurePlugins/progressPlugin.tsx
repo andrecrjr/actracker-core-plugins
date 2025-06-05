@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { IPlugin, PluginSandbox } from 'remote/types';
 
 // Sample Progress Plugin
-export const progressPlugin: IPlugin = {
+const progressPlugin: IPlugin = {
   id: 'progress-plugin',
   name: 'Daily Progress',
   description: 'Track your daily progress',
@@ -60,6 +60,8 @@ export const progressPlugin: IPlugin = {
     }
   },
 };
+
+export default progressPlugin;
 
 function ProgressPluginContent({
   date,

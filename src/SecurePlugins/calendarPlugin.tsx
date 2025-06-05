@@ -1,7 +1,7 @@
 import { IPlugin, PluginSandbox } from 'remote/types';
 
 // Sample Calendar Plugin
-export const calendarPlugin: IPlugin = {
+const calendarPlugin: IPlugin = {
   id: 'calendar-plugin',
   name: 'Mini Calendar',
   description: 'Quick calendar view',
@@ -81,3 +81,5 @@ function CalendarPluginContent({
     </div>
   );
 }
+
+export default calendarPlugin;

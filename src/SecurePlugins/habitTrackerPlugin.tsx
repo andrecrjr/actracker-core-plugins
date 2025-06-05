@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { IPlugin, PluginSandbox } from 'remote/types';
 
 // Sample Habit Tracker Plugin (for backward compatibility)
-export const habitTrackerPlugin: IPlugin = {
+const habitTrackerPlugin: IPlugin = {
   id: 'habit-tracker-plugin',
   name: 'Habit Tracker',
   description: 'Track your daily habits',
@@ -127,3 +127,5 @@ function HabitTrackerContent({
     </div>
   );
 }
+
+export default habitTrackerPlugin;

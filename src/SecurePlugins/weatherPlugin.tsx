@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { IPlugin, PluginSandbox } from 'remote/types';
 
 // Sample Weather Plugin
-export const weatherPlugin: IPlugin = {
+const weatherPlugin: IPlugin = {
   id: 'weather-plugin',
   name: 'Weather',
   description: 'Current weather information',
@@ -118,3 +118,5 @@ function WeatherPluginContent({
     </div>
   );
 }
+
+export default weatherPlugin;

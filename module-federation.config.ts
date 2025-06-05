@@ -4,7 +4,6 @@ export default createModuleFederationConfig({
   name: 'corePlugin',
   filename: 'static/remoteEntry.js',
   exposes: {
-    './SecurePlugins': './src/SecurePlugins/index.tsx',
     './TodoPlugin': './src/SecurePlugins/todoPlugin.tsx',
     './NotePlugin': './src/SecurePlugins/notePlugin.tsx',
     './WeatherPlugin': './src/SecurePlugins/weatherPlugin.tsx',
@@ -21,7 +20,7 @@ export default createModuleFederationConfig({
     remote: `daystack@${
       process.env.DAYSTACK_MF_JSON && process.env.NODE_ENV === 'production'
         ? `${process.env.DAYSTACK_MF_JSON}`
-        : `http://localhost:8080/static/mf-manifest.json`
+        : `http://localhost:8080/mf-manifest.json`
     }`,
   },
   manifest: {
